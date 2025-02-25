@@ -5,7 +5,6 @@ export function Header() {
   return (
     <header className={styles.header}>
       <img src={Logo} className={styles.logo} alt="Logo" />
-      <strong>Feed</strong>
     </header>
   );
 }
