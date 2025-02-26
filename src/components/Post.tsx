@@ -1,12 +1,28 @@
 import { format, formatDistanceToNow } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
+import { ptBR } from 'date-fns/locale/pt-BR';
 
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 import styles from './Post.module.css';
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent, InvalidEvent } from 'react';
 
-export function Post({ author, content, publishedAt }) {
+interface AuthorProps {
+  name: string;
+  avatarUrl: string;
+  role: string;
+}
+
+interface ContentProps {
+  type: 'paragraph' | 'link';
+  content: string;
+}
+interface PostProps {
+  author: AuthorProps;
+  content: ContentProps[];
+  publishedAt: Date;
+}
+
+export function Post({ author, content, publishedAt }: PostProps) {
   const [comments, setComments] = useState(['Post muito bom!', 'Parabéns!']);
   const [commentText, setCommentText] = useState('');
 
@@ -19,22 +35,22 @@ export function Post({ author, content, publishedAt }) {
     addSuffix: true,
   });
 
-  function handlerNewCommentChange(e) {
+  function handlerNewCommentChange(e: ChangeEvent<HTMLTextAreaElement>) {
     e.target.setCustomValidity('');
     setCommentText(e.target.value);
   }
 
-  function handlerComment(e) {
+  function handlerComment(e: FormEvent) {
     e.preventDefault();
     setComments([...comments, commentText]);
     setCommentText('');
   }
 
-  function deleteComment(comment) {
+  function deleteComment(comment: string) {
     setComments(comments.filter((c) => c !== comment));
   }
 
-  function handleCommentInvalid(e) {
+  function handleCommentInvalid(e: InvalidEvent<HTMLTextAreaElement>) {
     e.target.setCustomValidity('Por favor, preencha o campo de comentário.');
   }
 
