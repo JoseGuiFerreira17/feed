@@ -46,15 +46,6 @@
   gap: 1rem;
 }
 
-.avatar {
-  width: 3rem;
-  height: 3rem;
-  box-sizing: initial;
-  border-radius: 8px;
-  border: 2px solid var(--gray-800);
-  outline: 2px solid var(--green-500);
-}
-
 .info strong {
   display: block;
   color: var(--gray-100);
